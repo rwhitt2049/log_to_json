@@ -1,0 +1,9 @@
+pip
+flake8
+pep8-naming
+black
+tox
+twine
+pytest
+pytest-runner
+
