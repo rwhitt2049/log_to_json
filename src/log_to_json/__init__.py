@@ -2,6 +2,8 @@
 
 """Top-level package for Log to JSON."""
 
+from log_to_json.log_to_json import JsonFormatter
+
 import pathlib
 
 __author__ = """Ry Whittington"""
