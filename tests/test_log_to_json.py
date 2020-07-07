@@ -39,7 +39,7 @@ def test_json_message(caplog):
         ("asctime", None),
         ("created", None),
         ("exc_info", None),
-        ("filename","test_log_to_json.py"),
+        ("filename", "test_log_to_json.py"),
         ("funcName", "test_default_record_attributes"),
         ("levelname", "INFO"),
         ("levelno", 20),
@@ -54,7 +54,7 @@ def test_json_message(caplog):
         ("stack_info", None),
         ("thread", None),
         ("threadName", None),
-    )
+    ),
 )
 def test_default_record_attributes(caplog, key, expected):
     keys = (key,)
@@ -71,11 +71,12 @@ def test_default_record_attributes(caplog, key, expected):
 def test_formatter(caplog):
     message_formatter = lambda val: 2 * val
     formatter = JsonFormatter(
-        keys=("message",),
-        formatters={"message": message_formatter}
+        keys=("message",), formatters={"message": message_formatter}
     )
     logger.info(2)
-    expected = json.dumps({"message": "22"})  # seems numbers get cast to strings, is this caplog, or logging?
+    expected = json.dumps(
+        {"message": "22"}
+    )  # seems numbers get cast to strings, is this caplog, or logging?
     record = next(iter(caplog.records))
     actual = formatter.format(record)
     assert actual == expected
@@ -86,13 +87,10 @@ def test_finalizer(caplog):
         message["new_message"] = message["message"]
         del message["message"]
         return message
-    formatter = JsonFormatter(
-        keys=("message",),
-        finalizer=finalizer,
-    )
+
+    formatter = JsonFormatter(keys=("message",), finalizer=finalizer,)
     logger.info("test")
-    expected = json.dumps(
-        {"new_message": "test"})
+    expected = json.dumps({"new_message": "test"})
     record = next(iter(caplog.records))
     actual = formatter.format(record)
     assert actual == expected
@@ -100,16 +98,13 @@ def test_finalizer(caplog):
 
 def test_prefix(caplog):
     prefix = "TEST -> "
-    formatter = JsonFormatter(
-        keys=("message",),
-        prefix=prefix
-    )
+    formatter = JsonFormatter(keys=("message",), prefix=prefix)
     logger.info("test")
     expected = prefix + json.dumps({"message": "test"})
     record = next(iter(caplog.records))
     actual = formatter.format(record)
-    assert  actual == expected
+    assert actual == expected
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pytest.main()

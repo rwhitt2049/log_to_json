@@ -1,5 +1,7 @@
 # Logging to JSON
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 Yet another log to JSON library for Python.
 I needed a library that integrated well with applications that mixed logging using built-in logging outputs and JSON output.
 I was also unable to find a library that worked with `logging.QueueHandler`

@@ -20,6 +20,7 @@
 #
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath(".."))
 
 import log_to_json
@@ -33,13 +34,13 @@ import log_to_json
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named "sphinx.ext.*") or your custom ones.
 extensions = [
-    "sphinx.ext.autodoc", 
+    "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
     "sphinx.ext.autosummary",
     "sphinx.ext.napoleon",
     "sphinx.ext.doctest",
     "sphinx_autodoc_typehints",
-    ]
+]
 
 # Napoleon settings
 # Documentation: https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html
@@ -132,15 +133,12 @@ latex_elements = {
     # The paper size ("letterpaper" or "a4paper").
     #
     # "papersize": "letterpaper",
-
     # The font size ("10pt", "11pt" or "12pt").
     #
     # "pointsize": "10pt",
-
     # Additional stuff for the LaTeX preamble.
     #
     # "preamble": "",
-
     # Latex figure (float) alignment
     #
     # "figure_align": "htbp",
@@ -150,9 +148,13 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass
 # [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, "log_to_json.tex",
-     u"Log to JSON Documentation",
-     u"Ry Whittington", "manual"),
+    (
+        master_doc,
+        "log_to_json.tex",
+        u"Log to JSON Documentation",
+        u"Ry Whittington",
+        "manual",
+    ),
 ]
 
 
@@ -160,11 +162,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, "log_to_json",
-     u"Log to JSON Documentation",
-     [author], 1)
-]
+man_pages = [(master_doc, "log_to_json", u"Log to JSON Documentation", [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------
@@ -173,13 +171,13 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, "log_to_json",
-     u"Log to JSON Documentation",
-     author,
-     "log_to_json",
-     "One line description of project.",
-     "Miscellaneous"),
+    (
+        master_doc,
+        "log_to_json",
+        u"Log to JSON Documentation",
+        author,
+        "log_to_json",
+        "One line description of project.",
+        "Miscellaneous",
+    ),
 ]
-
-
-

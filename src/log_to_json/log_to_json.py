@@ -5,14 +5,16 @@ import typing
 from collections import abc
 
 
-def get_exc_info(record: logging.LogRecord, formatter: logging.Formatter) -> str:
+def get_exc_info(
+    record: logging.LogRecord, formatter: logging.Formatter
+) -> typing.Union[str, None]:
     if record.exc_text:
         val = record.exc_text
     elif record.exc_info:
         val = formatter.formatException(record.exc_info)
         record.exc_text = val
     else:
-        val = None
+        val = None  # type: ignore
 
     return val
 
@@ -32,14 +34,14 @@ class JsonFormatter(logging.Formatter):
         prefix: typing.Optional[str] = None,
     ):
         special_keys = {
-            "stack_info": lambda record: self.formatStack(record.stack_info),  # does this get the stack info and format, or just format it?
+            "stack_info": lambda record: self.formatStack(record.stack_info),
             "exc_info": lambda record: get_exc_info(record, self),
-            "asctime": lambda record: self.formatTime(record, self.datefmt)  # does this format then get the time, or just format it?
-        }  # need to determine what to do if a user tries to format these as well - chain them together? user(default(key))?
+            "asctime": lambda record: self.formatTime(record, self.datefmt),
+        }
 
         keys = tuple(keys) if keys is not None else ()
 
-        self.keys = {
+        self.keys: typing.Mapping[str, typing.Callable] = {
             key: special_keys.get(key, lambda record, k=key: getattr(record, k))
             for key in keys
         }
@@ -55,9 +57,7 @@ class JsonFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         try:
-            message_dict = dict(
-                getattr(record, "json_message", {})
-            )
+            message_dict = dict(getattr(record, "json_message", {}))
         except ValueError as e:  # trying to cast a non-mapping raises ValueError
             raise ValueError("Json message needs to be a mapping") from e
 
@@ -69,7 +69,7 @@ class JsonFormatter(logging.Formatter):
 
         log_message = {
             **message_dict,
-            **{k: getter(record) for k, getter in self.keys.items()}
+            **{k: getter(record) for k, getter in self.keys.items()},
         }
 
         for key, formatter in self.fmt.items():
@@ -77,4 +77,4 @@ class JsonFormatter(logging.Formatter):
 
         msg = self.finalizer(log_message)
 
-        return f"{self.prefix}{self.serializer(msg)}"
+        return f"{self.prefix}{self.serializer(msg)}"  # type: ignore
