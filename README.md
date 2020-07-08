@@ -9,11 +9,11 @@ Thus this library was born.
 
 # Install
 
-`pip install log_to_json`
+`pip install log-to-json`
 
 or
 
-`conda install log_to_json -c conda-forge`
+`conda install log-to-json -c conda-forge`
 
 # Example
 
