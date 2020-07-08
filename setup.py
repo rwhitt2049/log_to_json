@@ -47,6 +47,7 @@ setup(
     keywords="log_to_json",
     license="MIT license",
     long_description=readme,
+    long_description_content_type="text/markdown",
     name="log_to_json",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
