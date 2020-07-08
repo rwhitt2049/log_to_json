@@ -1,0 +1,5 @@
+sphinx==3.1
+sphinx-autodoc-typehints==1.11
+sphinx-copybutton0.2
+sphinx_rtd_theme==0.4
+sphinx_toggleprompt==0.0.2
