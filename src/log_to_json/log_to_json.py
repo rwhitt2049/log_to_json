@@ -41,10 +41,10 @@ class JsonFormatter(logging.Formatter):
 
         keys = tuple(keys) if keys is not None else ()
 
-        self.keys: typing.Mapping[str, typing.Callable] = {
+        self.keys = {
             key: special_keys.get(key, lambda record, k=key: getattr(record, k))
             for key in keys
-        }
+        }  # type: typing.Mapping[str, typing.Callable]
 
         self.fmt = dict(formatters) if formatters is not None else {}
         self.serializer = serializer if serializer is not None else json.dumps
@@ -77,4 +77,4 @@ class JsonFormatter(logging.Formatter):
 
         msg = self.finalizer(log_message)
 
-        return f"{self.prefix}{self.serializer(msg)}"  # type: ignore
+        return "{prefix}{json}".format(prefix=self.prefix, json=self.serializer(msg))  # type: ignore
