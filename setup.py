@@ -15,9 +15,9 @@ about_fid = (
 with about_fid.open(mode="r") as f:
     exec(f.read(), about)
 
-
+this_dir = pathlib.Path(__file__).parent.absolute()
 def read_files(path):
-    with open(path, encoding="utf-8") as fid:
+    with this_dir.joinpath(path).open(mode="r", encoding="utf-8") as fid:
         return fid.read()
 
 
@@ -47,6 +47,7 @@ setup(
     keywords="log_to_json",
     license="MIT license",
     long_description=readme,
+    long_description_content_type="text/markdown",
     name="log_to_json",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
