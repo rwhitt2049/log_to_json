@@ -15,9 +15,9 @@ about_fid = (
 with about_fid.open(mode="r") as f:
     exec(f.read(), about)
 
-
+this_dir = pathlib.Path(__file__).parent.absolute()
 def read_files(path):
-    with open(path, encoding="utf-8") as fid:
+    with this_dir.joinpath(path).open(mode="r", encoding="utf-8") as fid:
         return fid.read()
 
 
